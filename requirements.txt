@@ -1,0 +1,10 @@
+pandas
+tqdm
+Pillow
+tabula
+numpy
+pdf2image
+pytesseract
+langdetect
+xlsxwriter
+pywin32
