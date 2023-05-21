@@ -4,16 +4,20 @@ import win32com.client as win32
 from tqdm import tqdm
 import os
 
+
 class ImageConverter:
+
+    def __init__(self, poppler_path):
+        self.poppler_path = poppler_path
 
     def file_to_image(self, file_path):
         """
-        Conversion au format image(.PNG)
+        Conversion to image format(.PNG)
         :param file_path: PDF file to convert in IMAGE format
         :return: None
         """
         try:
-            images = convert_from_path(file_path)
+            images = convert_from_path(file_path, poppler_path=self.poppler_path)
         except PDFPageCountError:
             print(f'[+] Error while trying to convert {file_path}')
         else:

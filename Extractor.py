@@ -68,7 +68,7 @@ class EFRExtractor:
         self.regex_roi_dict = {
             'GENERAL_INFORMATION': {
                 'ROI': (270, 395, 530, 530),
-                'REGEX_FR': r'(?P<NOM>[a-zA-Z ]+)\n*(?P<PRENOM>[a-zA-Z ]+)\n*(?P<ETHNIE>.+)\n*(?P<TAILLE>\d+)',
+                'REGEX_FR': r'(?P<NOM>.+)\n*(?P<PRENOM>.+)\n*(?P<ETHNIE>.+)\n*(?P<TAILLE>\d+)',
                 'GROUP_NAMES': ['NOM', 'PRENOM', 'ETHNIE', 'TAILLE'],
                 'TESSERACT_CONFIG': '--psm 6'
             },
@@ -91,7 +91,7 @@ class EFRExtractor:
                 'TESSERACT_CONFIG': None
             },
             'TESTS_PARAMETRES': {
-                'ROI': (70, 880, 225, 1050),
+                'ROI': (70, 880, 230, 1050),
                 'REGEX_FR': r'(?i)\n*(?P<PARAM_1>[A-Z0-9%]+)\n*(?P<PARAM_2>[A-Z0-9%]+)\n*(?P<PARAM_3>[A-Z0-9%]+)\n*'
                             r'(?P<PARAM_4>[A-Z0-9%]+)',
                 'GROUP_NAMES': ['PARAM_1', 'PARAM_2', 'PARAM_3', 'PARAM_4'],
@@ -125,14 +125,11 @@ class Extractor(IPSExtractor, EFRExtractor):
             return pytesseract.image_to_string(image, config=config)
 
     def detect_language(self, image):
-        language = detect(self.extract_text(image, config=None)).upper()
-        # print(f"Language is {language}")
-        return language
+        return detect(self.extract_text(image, config=None)).upper()
 
     def extract_data_from_roi(self, roi_image, item, language, extractor_obj, dotall=False):
         regex_roi_dict = extractor_obj.regex_roi_dict
         text = self.extract_text(image=roi_image, config=regex_roi_dict[item]['TESSERACT_CONFIG'])
-        # print(f"\nExtracted text is:\n{text}")
         if dotall:
             regex_flags = re.DOTALL
         else:
