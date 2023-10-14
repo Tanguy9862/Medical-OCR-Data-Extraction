@@ -1,7 +1,7 @@
 # Text Recognition from Images
 
 ## Context
-This project aims to extract text from images using Optical Character Recognition (OCR) techniques with pytesseract.
+This repository contains Python scripts developed during a data science internship. The project aims to extract vital medical data—specifically, Index of Systolic Pressure (IPS) and Functional Respiratory Tests (EFR) from images. These data are crucial for patient diagnostics and treatment plans.
 
 ## Technologies Used
 - Python 3.x
